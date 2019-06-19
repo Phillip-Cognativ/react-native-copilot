@@ -33,6 +33,7 @@ const copilot = ({
   tooltipComponent,
   stepNumberComponent,
   animated,
+  arrow,
   androidStatusBarVisible,
   backdropColor,
   verticalOffset = 0,
@@ -190,6 +191,7 @@ const copilot = ({
               tooltipComponent={tooltipComponent}
               overlay={overlay}
               animated={animated}
+              arrow={arrow}
               androidStatusBarVisible={androidStatusBarVisible}
               backdropColor={backdropColor}
               ref={(modal) => { this.modal = modal; }}

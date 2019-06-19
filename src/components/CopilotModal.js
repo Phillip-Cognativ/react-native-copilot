@@ -20,6 +20,7 @@ type Props = {
   stepNumberComponent: ?React$Component,
   overlay: 'svg' | 'view',
   animated: boolean,
+  arrow: boolean,
   androidStatusBarVisible: boolean,
   backdropColor: string
 };
@@ -47,6 +48,7 @@ class CopilotModal extends Component<Props, State> {
     overlay: typeof NativeModules.RNSVGSvgViewManager !== 'undefined' ? 'svg' : 'view',
     // If animated was not specified, rely on the default overlay type
     animated: typeof NativeModules.RNSVGSvgViewManager !== 'undefined',
+    arrow: true,
     androidStatusBarVisible: false,
     backdropColor: 'rgba(0, 0, 0, 0.4)',
   };
@@ -263,7 +265,7 @@ class CopilotModal extends Component<Props, State> {
           currentStepNumber={this.props.currentStepNumber}
         />
       </Animated.View>,
-      <Animated.View key="arrow" style={[styles.arrow, this.state.arrow]} />,
+      this.props.arrow && <Animated.View key="arrow" style={[styles.arrow, this.state.arrow]} />,
       <Animated.View key="tooltip" style={[styles.tooltip, this.state.tooltip]}>
         <TooltipComponent
           isFirstStep={this.props.isFirstStep}
