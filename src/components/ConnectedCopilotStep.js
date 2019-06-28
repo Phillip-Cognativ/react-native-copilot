@@ -7,6 +7,7 @@ type Props = {
   name: string,
   text: string,
   order: number,
+  highlightOffset: object,
   active?: boolean,
   _copilot: CopilotContext,
   children: React$Element
@@ -66,10 +67,25 @@ class ConnectedCopilotStep extends Component<Props> {
       const measure = () => {
         // Wait until the wrapper element appears
         if (this.wrapper && this.wrapper.measure) {
+
           this.wrapper.measure(
-            (ox, oy, width, height, x, y) => resolve({
-              x, y, width, height,
-            }),
+            ((ox, oy, width, height, x, y) => {
+
+              let xOffest = 0;
+              let yOffest = 0;
+              let widthOffest = 0;
+              let heightOffest = 0;
+
+              if(this.props.highlightOffset){
+                if(this.props.highlightOffset.x){ xOffest = this.props.highlightOffset.x; }
+                if(this.props.highlightOffset.y){ yOffest = this.props.highlightOffset.y; }
+                if(this.props.highlightOffset.width){ widthOffest = this.props.highlightOffset.width; }
+                if(this.props.highlightOffset.height){ heightOffest = this.props.highlightOffset.height; }
+              }
+
+              resolve({ x: x + xOffest, y: y + yOffest, width: width + widthOffest, height: height + heightOffest });
+
+            }).bind(this),
             reject,
           );
         } else {

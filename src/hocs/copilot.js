@@ -33,10 +33,11 @@ const copilot = ({
   tooltipComponent,
   stepNumberComponent,
   animated,
+  arrow,
+  tooltipStyle,
   androidStatusBarVisible,
   backdropColor,
   verticalOffset = 0,
-  wrapperStyle,
 } = {}) =>
   (WrappedComponent) => {
     class Copilot extends Component<any, State> {
@@ -164,13 +165,13 @@ const copilot = ({
           width: size.width + OFFSET_WIDTH,
           height: size.height + OFFSET_WIDTH,
           left: size.x - (OFFSET_WIDTH / 2),
-          top: (size.y - (OFFSET_WIDTH / 2)) + verticalOffset,
+          top: size.y - (OFFSET_WIDTH / 2) + verticalOffset,
         });
       }
 
       render() {
         return (
-          <View style={wrapperStyle || { flex: 1 }}>
+          <View style={{ flex: 1 }}>
             <WrappedComponent
               {...this.props}
               start={this.start}
@@ -191,6 +192,8 @@ const copilot = ({
               tooltipComponent={tooltipComponent}
               overlay={overlay}
               animated={animated}
+              arrow={arrow}
+              tooltipStyle={tooltipStyle}
               androidStatusBarVisible={androidStatusBarVisible}
               backdropColor={backdropColor}
               ref={(modal) => { this.modal = modal; }}
